@@ -1,0 +1,77 @@
+<form (ngSubmit)="guardar()" #formName="ngForm">
+
+  <!-- Nombre -->
+  <div class="row mb-3">
+    <label class="col-sm-3 col-form-label">Name</label>
+    <div class="col-sm-9">
+      <input
+        type="text"
+        name="nombre"
+        [(ngModel)]="persona.nombre"
+        class="form-control"
+        placeholder="Nombre"
+        autocomplete="off"
+        required
+        minlength="3"/>
+        <span class="form-text text-danger"
+              *ngIf="isInvalidName()">
+          Este campo es obligatorio
+        </span>
+    </div>
+  </div>
+
+
+  <!-- Agregar Favorito -->
+  <div class="row mb-3">
+    <label class="col-sm-3 col-form-label">Agregar</label>
+    <div class="col-sm-9">
+
+      <div class="input-group">
+        <input class="form-control"
+               placeholder="Agregar Juegos Favoritos"
+               autocomplete="off"
+               [(ngModel)]="nuevoJuego"
+               name="nuevoJuego"
+               (keyup.enter)="addFavorito()"/>
+        <button class="btn btn-outline-primary"
+                type="button"
+                (click)="addFavorito()">
+          Agregar
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+    <!-- Lista de Juegos Favoritos -->
+    <div class="row mb-3">
+      <label class="col-sm-3 col-form-label">Favoritos</label>
+      <div class="col-sm-9">
+        <div class="input-group mb-2"
+             *ngFor="let favorito of persona.favoritos; let i = index">
+          <input class="form-control"
+                 name="favorito_{{ i }}"
+                 [(ngModel)]="favorito.nombre"/>
+                  <button class="btn btn-danger" type="button" (click)="deleteFavorito(favorito)" > X </button>
+        </div>
+      </div>
+    </div>
+
+  <div class="row">
+    <div class="col">
+      <button type="button"
+              (click)="guardar()"
+              class="btn btn-primary float-end"
+              [disabled]="formName.invalid">
+        Guardar
+      </button>
+    </div>
+  </div>
+
+</form>
+
+<hr>
+
+<strong>Persona:</strong>
+<br>
+<pre>{{ persona | json }}</pre>
