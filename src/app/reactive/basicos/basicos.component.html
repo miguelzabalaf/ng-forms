@@ -1,1 +1,91 @@
-<p>basicos works!</p>
+<div class="row">
+  <div class="col">
+
+    <!-- # => Referenciar este formulario y especificar que va a ser de tipo ngForm -->
+    <form [formGroup]='miForm' (ngSubmit)="submiForm()"  autocomplete="off">
+
+      <!-- Campo de Producto -->
+      <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Producto</label>
+        <div class="col-sm-9">
+          <input type="text"
+                 class="form-control"
+                 formControlName="nombre">
+            <span class="form-text text-danger"
+                  *ngIf="isInputValid('nombre')">
+              Debe ser de 3 letras
+            </span>
+        </div>
+
+      </div>
+      <!-- Campo de Producto END -->
+
+      <!-- Campo de Precio -->
+      <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Precio</label>
+        <div class="col-sm-9">
+          <input type="number"
+                 class="form-control"
+                 placeholder="Precio del Producto"
+                 formControlName="precio">
+                 <span class="form-text text-danger"
+                 *ngIf="isInputValid('precio')">
+                   El precio debe ser 0 o mayor
+                 </span>
+        </div>
+
+      </div>
+      <!-- Campo de Precio END -->
+
+      <!-- Campo de Existencias -->
+      <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Existencias</label>
+        <div class="col-sm-9">
+          <input type="number"
+                 class="form-control"
+                 placeholder="Existencias del Producto"
+                 formControlName="existencias">
+                 <span class="form-text text-danger"
+                 *ngIf="isInputValid('existencias')">
+                   El precio debe ser 0 o mayor
+                 </span>
+        </div>
+
+      </div>
+      <!-- Campo de Existencias END -->
+
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-danger">
+            Reset
+          </button>
+          <button type="submit"
+                 class="btn btn-primary float-end"
+                 [disabled]="!miForm.valid">
+            Guardar
+          </button>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+</div>
+
+<hr>
+
+<div class="row">
+  <div class="col">
+    <span><strong>Valid: </strong><span class="text-success" [ngClass]="{'text-danger': !miForm.valid}" >{{ miForm.valid | json }}</span> </span>
+    <br>
+    <span><strong>Pristine (No se han tocado valores): </strong>{{ miForm.pristine | json }}</span>
+    <br>
+    <span><strong>Touched: </strong>{{ miForm.touched | json }}</span>
+    <br>
+    <strong>Value:</strong>
+    <pre>{{ miForm.value | json }}</pre>
+    <br>
+    <strong>CustomDirectives:</strong>
+    <pre>{{ miForm.controls.existencia?.errors | json }}</pre>
+  </div>
+</div>
